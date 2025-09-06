@@ -89,8 +89,8 @@ export const loginUser = async (req, res) => {
       });
     }
 
-    const accessToken = generateUserAccessToken(user);
-    const refreshToken = generateUserRefreshToken(user);
+    const accessToken = generateUserAccessToken(user._id);
+    const refreshToken = generateUserRefreshToken(user._id);
 
     await Token.create({
       userId: user._id,

@@ -1,21 +1,15 @@
 import jwt from "jsonwebtoken";
 
-export const generateUserAccessToken = (user) => {
-  return jwt.sign(
-    { id: user._id, email: user.email },
-    process.env.JWT_ACCESS_TOKEN_SECRET,
-    { expiresIn: process.env.JWT_ACCESS_TOKEN_EXPIRY || "15m" }
-  );
+export const generateUserAccessToken = (userId) => {
+  return jwt.sign({ id: userId }, process.env.JWT_ACCESS_TOKEN_SECRET_USER, {
+    expiresIn: process.env.JWT_ACCESS_TOKEN_EXPIRY_USER || "15m",
+  });
 };
 
-export const generateUserRefreshToken = (user) => {
-  return jwt.sign(
-    { id: user._id, email: user.email },
-    process.env.JWT_REFRESH_TOKEN_SECRET,
-    {
-      expiresIn: process.env.JWT_REFRESH_TOKEN_EXPIRY || "7d",
-    }
-  );
+export const generateUserRefreshToken = (userId) => {
+  return jwt.sign({ id: userId }, process.env.JWT_REFRESH_TOKEN_SECRET_USER, {
+    expiresIn: process.env.JWT_REFRESH_TOKEN_EXPIRY_USER || "7d",
+  });
 };
 
 export const verifyRefreshToken = (token, secret) => {
