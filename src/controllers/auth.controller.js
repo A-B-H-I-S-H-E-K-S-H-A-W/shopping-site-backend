@@ -1,7 +1,6 @@
 import { Token } from "../models/token.models.js";
 import { User } from "../models/users.models.js";
 import Decrypt from "../utils/Decrypt.js";
-import jwt from "jsonwebtoken";
 import Encrypt from "../utils/Encrypt.js";
 import {
   generateUserAccessToken,
@@ -11,7 +10,15 @@ import {
 
 export const registerUser = async (req, res) => {
   try {
-    const { fullName, email, password, phone } = req.body;
+    const { email, fullName, password, phone } = req.body;
+
+    if (!email && !password && !phone) {
+      return res.status(400).json({
+        success: false,
+        message: "Fields cannot be empty",
+        statusCode: 400,
+      });
+    }
 
     const existingUser = await User.findOne({ email });
 

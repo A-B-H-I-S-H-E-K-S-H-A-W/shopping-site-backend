@@ -14,7 +14,7 @@ const addressSchema = new Schema(
 
 const userSchema = new Schema(
   {
-    fullname: {
+    fullName: {
       type: String,
       required: true,
       trim: true,
