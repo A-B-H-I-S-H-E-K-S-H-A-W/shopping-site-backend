@@ -47,6 +47,14 @@ export const createProduct = async (req, res) => {
       });
     }
 
+    if (!Array.isArray(images)) {
+      return res.status(400).json({
+        success: false,
+        message: "Images cannot be empty",
+        statusCode: 400,
+      });
+    }
+
     const imagesArray = await MultipleFileUploader(images);
 
     const newProduct = new Product({
