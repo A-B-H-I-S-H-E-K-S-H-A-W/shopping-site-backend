@@ -43,7 +43,7 @@ export async function MultipleFileUploader(images) {
 export async function MultipleFileRemover(images) {
   try {
     for (const image of images) {
-      await cloudinary.uploader.destroy(images.public_id, {
+      await cloudinary.uploader.destroy(image.public_id, {
         resource_type: "auto",
       });
 
