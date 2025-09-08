@@ -206,3 +206,53 @@ export const updateProduct = async (req, res) => {
     });
   }
 };
+
+export const getAllProducts = async (req, res) => {
+  try {
+    const products = await Product.find()
+      .populate("category")
+      .populate("reviews");
+    return res.status(200).json({
+      success: true,
+      message: "Products fetched successfully",
+      statusCode: 200,
+      data: products,
+    });
+  } catch (error) {
+    console.log("Error fetching products::::", error);
+    res.status(500).json({
+      success: false,
+      message: "Internal Server Error",
+      statusCode: 500,
+    });
+  }
+};
+
+export const getProductById = async (req, res) => {
+  try {
+    const { productId } = req.params;
+    const product = await Product.findById(productId)
+      .populate("category")
+      .populate("reviews");
+    if (!product) {
+      return res.status(404).json({
+        success: false,
+        message: "Product not found",
+        statusCode: 404,
+      });
+    }
+    return res.status(200).json({
+      success: true,
+      message: "Product fetched successfully",
+      statusCode: 200,
+      data: product,
+    });
+  } catch (error) {
+    console.log("Error fetching product::::", error);
+    res.status(500).json({
+      success: false,
+      message: "Internal Server Error",
+      statusCode: 500,
+    });
+  }
+};
