@@ -1,9 +1,9 @@
-import { Product } from "../models/product.models";
+import { Product } from "../models/product.models.js";
 import {
   MultipleFileRemover,
   MultipleFileUploader,
   updateMultipleFiles,
-} from "../services/cloudinary";
+} from "../services/cloudinary.js";
 
 export const createProduct = async (req, res) => {
   try {
